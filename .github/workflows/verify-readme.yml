@@ -1,0 +1,22 @@
+name: Verify README syntax
+
+on:
+  pull_request:
+    branches:
+      - develop
+
+jobs:
+  check-readme:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Validate README syntax
+        run: |
+          if grep -q "[^[:print:]\t]" README.md; then
+            echo "README.md contains invalid syntax"
+            exit 1
+          else
+            echo "README.md syntax is valid"
+          fi
