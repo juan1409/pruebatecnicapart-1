@@ -1,54 +1,127 @@
+
 # pruebatecnicapart-1
-# DevOps Technical Test Project
+# Prueba Técnica Part 1 – GitHub Actions & CircleCI Simulation
 
-This repository contains a technical test to evaluate skills in Git, branch management, Pull Requests, and creating workflows with GitHub Actions.
+## **Project Overview**
+This project demonstrates a practical implementation of Git workflows, GitHub Actions, and CircleCI simulation using GitHub Actions. It covers the following key points:
 
-## Prerequisites
-Before starting, make sure you have the following tools installed:
+- Git branching strategy (`main`, `develop`, `feature/*`, `bugfix/*`)
+- Pull Request (PR) workflow for merging branches
+- Automated workflows using GitHub Actions
+- CircleCI workflow simulation for build and test jobs
+- Bash script integration and testing using `bats`
 
-- Git
-- Text editor or IDE (such as Visual Studio Code)
+---
 
-## Branch Structure and Pull Requests
+## **Repository Structure**
+```plaintext
+├── .github/
+│   └── workflows/
+│       ├── verify-readme.yml          # GitHub Action to verify README.md syntax
+│       └── circleci-simulation.yml    # CircleCI simulation for build and test jobs
+├── README.md                          # Project documentation
+├── login.txt                          # Sample file for testing purposes
+└── script.sh                          # Bash script used in CircleCI simulation
 
-### Branches used:
-- **main**: Main branch for production.
-- **develop**: Development branch.
-- **feature/add-github-actions**: Branch for adding workflows.
-- **bugfix/fix-typo**: Branch for fixing typos.
+Branching Strategy
+The repository follows a structured Git workflow with multiple branches:
 
-### Created Pull Requests:
-1. **PR_feature-add-github-actions**
-   - **Description**: A workflow was added to check the syntax of the README.md file.
-   - **Source branch**: `feature/add-github-actions`
-   - **Target branch**: `develop`
+main: The main production branch. All stable code is merged here.
+develop: Main development branch. All new features and bug fixes are integrated here.
+feature/*: Used for new features (e.g., feature/add-github-actions).
+bugfix/*: Used for fixing bugs (e.g., bugfix/fix-typo).
+Example PRs:
+Feature PR: Merging feature/add-github-actions into develop.
+Bugfix PR: Merging bugfix/fix-typo into main.
+GitHub Actions
+Two GitHub Actions workflows are implemented in this project:
 
-2. **PR_bugfix-fix-typo**
-   - **Description**: A typo was fixed in `login.txt`.
-   - **Source branch**: `bugfix/fix-typo`
-   - **Target branch**: `main`
+Verify README Syntax
+This workflow runs whenever a PR is created for the develop branch. It verifies the syntax of the README.md file.
 
-## GitHub Actions
+Workflow File: .github/workflows/verify-readme.yml
 
-### Implemented Workflows:
-1. **README.md Syntax Check**
-   - **Event**: Creation of a Pull Request to the `develop` branch.
-   - **Description**: This workflow checks for syntax errors in the README.md file.
+Simulate CircleCI Workflow
+This workflow simulates a CircleCI build and test job. It runs on every commit to the main branch.
 
-2. **Simulated Deployment on Main**
-   - **Event**: Push to the `main` branch.
-   - **Description**: This workflow simulates a deployment and prints "Deploy Successful" to the console.
+Jobs in the Workflow:
 
-## Steps to Execute
+Build Job: Executes a sample Bash script (script.sh) for file manipulation and calculations.
+Test Job: Runs unit tests using bats to validate the functionality of the Bash script.
+Workflow File: .github/workflows/circleci-simulation.yml
 
-1. **Clone the repository:**
+How to Run the Project Locally
+Clone the Repository
+
+
+git clone https://github.com/juan1409/pruebatecnicapart-1.git
+cd pruebatecnicapart-1
+View GitHub Actions Logs
+Navigate to the Actions tab to check the workflows' logs.
+
+CircleCI Workflow Simulation
+The CircleCI simulation includes two jobs: build and test.
+
+Build Job
+The build job executes the script.sh Bash script. The script performs simple arithmetic operations and manipulates a sample file.
+
+
+#!/bin/bash
+echo "Performing calculations..."
+result=$((5 + 10))
+echo "Result: $result"
+Test Job
+The test job runs unit tests using the bats framework.
+
+Example Test:
+
+
+#!/usr/bin/env bats
+
+@test "Check if the script runs successfully" {
+  run ./script.sh
+  [ "$status" -eq 0 ]
+}
+Commands Used During Development
+Git Workflow
+
+# Creating a new branch
+git checkout -b feature/add-github-actions
+
+# Adding changes and committing
+git add .
+git commit -m "Add GitHub Actions workflow"
+
+# Pushing to remote
+git push origin feature/add-github-actions
+GitHub Actions
+The workflows are located in the .github/workflows directory and automatically execute based on the branch or event type.
+
+Future Improvements
+Add integration tests.
+Implement CI/CD pipeline for production deployment.
+Add more extensive error handling in Bash scripts.
+Contact
+For questions or suggestions, please contact Juan David.
+
+yaml
+
+---
+
+### **Steps to Upload and Push This `README.md` from Git Bash:**
+
+1. **Edit or Create the README.md file**  
+   You can edit the existing README.md or create a new one using the following command:
    ```bash
-   git clone https://github.com/username/repo.git
-   ```
+   nano README.md
+Paste the content above and save it.
 
-2. **Switch to the desired branch:**
-   ```bash
-   git checkout develop
-   ```
+Add and Commit the Changes
 
-3. **Run workflows automatically by following the configured GitHub Actions.**
+
+git add README.md
+git commit -m "Update README with project documentation"
+Push the Changes to the Repository
+
+
+git push origin main
